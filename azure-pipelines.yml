@@ -37,3 +37,9 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+    - task: AzureWebAppContainer@1
+      displayName: 'Deploy Container to Azure App Service'
+      inputs:
+        azureSubscription: '$(dockerRegistryServiceConnection)'
+        appName: 'diluna-devops-app'
+        containers: '$(containerRegistry)/$(imageRepository):$(tag)'
